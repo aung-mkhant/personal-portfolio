@@ -9,6 +9,3 @@ author:
 ogImage:
   url: "/assets/blog/building-my-portfolio/cover.jpg"
 ---
-
-
-![waaa-japan.jpg](blob:http://localhost:3000/1d5432e8-fafe-440d-99b3-49f17b8d5fd2)
