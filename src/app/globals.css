@@ -1,88 +1,166 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "./prism-atom-dark.css";
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-main: var(--main);
+  --color-overlay: var(--overlay);
+  --color-link: var(--link);
+  --color-background: var(--background);
+  --color-highlight: var(--highlight);
+  --color-card: var(--card);
+  --color-secondary-background: var(--secondary-background);
+  --color-blank: var(--blank);
+  --color-foreground: var(--foreground);
+  --color-main-foreground: var(--main-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-ringOffset: var(--ring-offset);
+  --color-secondaryBlack: #212121;
+
+  --radius-base: 5px;
+
+  --shadow-shadow: var(--shadow);
+
+  --translate-boxShadowX: 4px;
+  --translate-boxShadowY: 4px;
+  --translate-reverseBoxShadowX: -4px;
+  --translate-reverseBoxShadowY: -4px;
+
+  --font-young-serif: var(--font-young-serif), serif;
+  --font-literata: var(--font-literata), serif;
+
+  --font-weight-base: 500;
+  --font-weight-heading: 700;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 @layer base {
- :root {
-  --main: #88aaee;
-  --overlay: rgba(0, 0, 0, 0.8); /* background color overlay for alert dialogs, modals, etc. */
+  :root {
+    --main: #88aaee;
+    --overlay: rgba(
+      0,
+      0,
+      0,
+      0.8
+    ); /* background color overlay for alert dialogs, modals, etc. */
+    --link: hsl(200, 100%, 50%);
 
-  --bg: #FBFBFB;
-  --highlight: #BFFFE6; 
-  --card: #F5F5F5;
-  --bw: #fff; /* white and secondary black e.g. utility class variant would be: bg-[#fff] dark:bg-[#212121] */
-  --blank: #000; /* blank black and white */
-  --border: #000;
-  --text: #000;
-  --mtext: #000; /* text that is placed on background with main color e.g. text color of default button */
-  --ring: #000;
-  --ring-offset: #fff;
+    --background: #fbfbfb;
+    --highlight: #bfffe6;
+    --card: #f5f5f5;
+    --secondary-background: #fff; /* white and secondary black e.g. utility class variant would be: background-[#fff] dark:background-[#212121] */
+    --blank: #000; /* blank black and white */
+    --border: #000;
+    --foreground: #000;
+    --main-foreground: #000; /* foreground that is placed on background with main color e.g. foreground color of default button */
+    --ring: #000;
+    --ring-offset: #fff;
 
-  --border-radius: 5px;
-  --box-shadow-x: 4px;
-  --box-shadow-y: 4px;
-  --reverse-box-shadow-x: -4px;
-  --reverse-box-shadow-y: -4px;
-  --base-font-weight: 500;
-  --heading-font-weight: 700;
+    --border-radius: 5px;
+    --box-shadow-x: 4px;
+    --box-shadow-y: 4px;
+    --reverse-box-shadow-x: -4px;
+    --reverse-box-shadow-y: -4px;
+    --base-font-weight: 500;
+    --heading-font-weight: 700;
 
-  --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
-}
-
-[data-theme="dark"] {
-  --bg: #272933;
-  --highlight: #249A8B;
-  --card: #1E1E1E;
-  --bw: #212121;
-  --blank: #fff;
-  --border: #000;
-  --text: #e6e6e6;
-  --mtext: #000;
-  --ring: #fff;
-  --ring-offset: #000;
-
-  --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
-}
-}
-
-@layer base {
-  * {
-    
-  }
-  body {    
-   
-  }
-h3{
-  @apply italic font-literata text-2xl;
-}  
-  p{
-    
-  }
- 
- .bg-dynamic {
-    background-color: var(--bg);
-  }
-  .active {
-    @apply underline;
+    --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
   }
 
-.blog-post {
+  .dark {
+    --background: #272933;
+    --highlight: #249a8b;
+    --card: #1e1e1e;
+    --secondary-background: #212121;
+    --blank: #fff;
+    --border: #000;
+    --foreground: #e6e6e6;
+    --main-foreground: #000;
+    --ring: #fff;
+    --ring-offset: #000;
 
-}
-.blog-post h2{
-  @apply text-3xl font-young-serif mt-12 mb-6;
-}
-  .blog-post p {
-@apply font-literata text-xl pb-8;    
-  }
-
-  .blog-post img {
-    @apply w-auto h-auto max-w-full my-8 mx-auto;
-  }
-
-  .blog-post a {
-    @apply text-[hsl(200,100%,50%)] hover:underline underline-offset-2;
+    --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
   }
 }
 
+pre {
+  overflow-x: auto;
+  background: transparent;
+}
+
+/**
+ * Inspired by gatsby remark prism - https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/
+ * 1. Make the element just wide enough to fit its content.
+ * 2. Always fill the visible space in .code-highlight.
+ */
+.code-highlight {
+  float: left; /* 1 */
+  min-width: 100%; /* 2 */
+}
+
+.code-line {
+  display: block;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: -16px;
+  margin-right: -16px;
+  border-left: 4px solid rgba(0, 0, 0, 0); /* Set placeholder for highlight accent border color to transparent */
+}
+
+.code-line.inserted {
+  background-color: rgba(16, 185, 129, 0.2); /* Set inserted line (+) color */
+}
+
+.code-line.deleted {
+  background-color: rgba(239, 68, 68, 0.2); /* Set deleted line (-) color */
+}
+
+.highlight-line {
+  margin-left: -16px;
+  margin-right: -16px;
+  background-color: rgba(239, 68, 68, 0.15);
+  /*text-decoration: underline wavy #ef4444;*/
+  /*text-underline-offset: 5px;*/
+  /*text-decoration-thickness:2px;*/
+  border-left: 4px solid rgb(59, 130, 246); /* Set highlight accent border color */
+}
+
+.line-number::before {
+  display: inline-block;
+  width: 1rem;
+  text-align: right;
+  margin-right: 16px;
+  margin-left: -8px;
+  color: rgb(156, 163, 175); /* Line number color */
+  content: attr(line);
+}
+
+.rehype-code-title {
+  @apply w-max rounded-t-lg border-b border-b-foreground !bg-[#282c34] px-4 py-2 font-mono text-xs text-zinc-200 md:text-sm lg:text-base;
+  margin-bottom: -0.5rem;
+  position: relative;
+  z-index: 1;
+}
+.rehype-code-title + pre {
+  @apply mt-0 rounded-tl-none;
+}

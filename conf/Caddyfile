@@ -1,0 +1,7 @@
+ localhost {
+    tls internal
+    handle /* {
+        reverse_proxy server:3000
+    }
+
+}
