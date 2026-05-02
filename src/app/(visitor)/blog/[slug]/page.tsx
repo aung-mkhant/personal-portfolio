@@ -2,13 +2,6 @@ import BlogPost from "@/components/ui/BlogPost"
 import { getPostData } from "@/lib/posts"
 import { notFound } from "next/navigation"
 import React from "react"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator
-} from "@/components/ui/Breadcrumb"
 import Link from "next/link"
 
 export default async function BlogPage({
